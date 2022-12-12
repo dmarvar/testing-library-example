@@ -1,24 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+import "./App.css";
+
+const fakeApiCall = async () => {
+  return axios.get<string>("/countToThree");
+};
 
 function App() {
+  const [count, setCount] = useState(0);
+  const [data, setData] = useState<string | undefined>(undefined);
+
+  const onNumberThree = async () => {
+    try {
+      const result = await fakeApiCall();
+      setData(result.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    if (count === 3) {
+      onNumberThree();
+    }
+  }, [count]);
+
+  const addCount = () => {
+    if (count < 3) {
+      setCount(count + 1);
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <article className="App-article">
+        {
+          // No data escenario
+          !data && (
+            <>
+              <h1>Counter</h1>
+              <h2 data-testid="counter-test-id">{count}</h2>
+              <br />
+              <button onClick={addCount}>Increment count:</button>
+            </>
+          )
+        }
+        {
+          // Data escenario
+          data && <p>{data}</p>
+        }
+      </article>
     </div>
   );
 }

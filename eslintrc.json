@@ -1,0 +1,12 @@
+{
+  "testing-library/no-debugging-utils": [
+    "error",
+    {
+      "utilsToCheckFor": {
+        "debug": true,
+        "logRoles": true,
+        "logDOM": true
+      }
+    }
+  ]
+}
