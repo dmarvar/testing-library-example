@@ -20,6 +20,7 @@
   "type": "module",
   "scripts": {
     "start": "react-scripts start",
+    "clear_jest": "jest --clearCache",
     "build": "react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\" --env=jsdom",
     "eject": "react-scripts eject"
