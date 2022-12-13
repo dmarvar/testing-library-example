@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 
 import "./App.css";
@@ -10,27 +10,32 @@ const fakeApiCall = async () => {
 function App() {
   const [count, setCount] = useState(0);
   const [data, setData] = useState<string | undefined>(undefined);
+  const [error, setError] = useState<string | undefined>(undefined);
 
-  const onNumberThree = async () => {
+  const onNumberThree = useCallback(async () => {
     try {
       const result = await fakeApiCall();
       setData(result.data);
-    } catch (e) {
-      console.log(e);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(error);
+      }
     }
-  };
+  }, [error]);
 
   useEffect(() => {
     if (count === 3) {
       onNumberThree();
     }
-  }, [count]);
+  }, [count, onNumberThree]);
 
   const addCount = () => {
     if (count < 3) {
       setCount(count + 1);
     }
   };
+
+  // return;
 
   return (
     <div className="App">

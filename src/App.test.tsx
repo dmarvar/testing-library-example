@@ -24,13 +24,13 @@ describe("App", () => {
     expect(count.innerHTML).toBe("0");
 
     userEvent.click(button);
-    await waitFor(() => expect(count.innerHTML).toBe("1"));
+    expect(count.innerHTML).toBe("1");
 
     userEvent.click(button);
-    await waitFor(() => expect(count.innerHTML).toBe("2"));
+    expect(count.innerHTML).toBe("2");
 
     userEvent.click(button);
-    await waitFor(() => expect(count.innerHTML).toBe("3"));
+    expect(count.innerHTML).toBe("3");
 
     const finalText = await screen.findByText("Great Work!");
 
