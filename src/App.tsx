@@ -10,7 +10,6 @@ const fakeApiCall = async () => {
 function App() {
   const [count, setCount] = useState(0);
   const [data, setData] = useState<string | undefined>(undefined);
-  const [error, setError] = useState<string | undefined>(undefined);
 
   const onNumberThree = useCallback(async () => {
     try {
@@ -18,10 +17,10 @@ function App() {
       setData(result.data);
     } catch (err: unknown) {
       if (err instanceof Error) {
-        setError(error);
+        console.log(err.message);
       }
     }
-  }, [error]);
+  }, []);
 
   useEffect(() => {
     if (count === 3) {
@@ -34,8 +33,6 @@ function App() {
       setCount(count + 1);
     }
   };
-
-  // return;
 
   return (
     <div className="App">
